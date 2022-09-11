@@ -10,7 +10,6 @@ import RegularText from '../Texts/RegularText';
 import { SubscriptionsProps } from './types';
 import SubscriptionsAvi from './SubscriptionAvi';
 
-
 const SubscriptionRow = styled.View`
 	width: 100%;
 	flex-direction: row;
@@ -84,7 +83,7 @@ const SubscriptionItem: FunctionComponent<SubscriptionsProps> = (props) => {
 				</SmallText>
 			</View>
 			<RightView>
-				<StyledView onPress={() => { return; }}>
+				<StyledView onPress={() => (props.deleteItem(props.id, props.forceUpdate))}>
 					<Ionicons name="close" size={25} color={colors.secondary}></Ionicons>
 				</StyledView>
 			</RightView>

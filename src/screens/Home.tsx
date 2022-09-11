@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useReducer } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import styled from "styled-components/native";
 
@@ -51,7 +51,21 @@ const addSubscription = (item: Subscription): void => {
 	return;
 }
 
+const deleteItem = (id: number, forceUpdate: React.DispatchWithoutAction): void => {
+	subscriptionData.forEach((item: Subscription, index: number) => {
+		if (item.id === id) subscriptionData.splice(index, 1);
+	})
+
+	let i = 1;
+	for (const item of subscriptionData) {
+		item.id = i;
+		i++;
+	}
+	forceUpdate();
+}
+
 const Home: FunctionComponent = ({ navigation }: any) => {
+	const [ignored, forceUpdate] = useReducer(x => x + 1, 0);
 	let yearlyCost = Math.ceil(totalAmount("Monthly") * 12 + totalAmount("Annual"));
 	if (yearlyCost == NaN) yearlyCost = 0;
 	const [addSubVisible, setSubVisible] = React.useState(false);
@@ -77,6 +91,8 @@ const Home: FunctionComponent = ({ navigation }: any) => {
 				getNextId={getNextId} />
 			<SubscriptionsSection
 				data={subscriptionData}
+				deleteItem={deleteItem}
+				forceUpdate={forceUpdate}
 				title="Subscriptions"
 				subtitle={`$${yearlyCost} per year`}
 			/>

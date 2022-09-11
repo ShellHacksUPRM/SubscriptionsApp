@@ -1,4 +1,5 @@
 import React from "react";
+import { Subscription } from "../../screens/Home";
 
 export interface SubscriptionsProps {
 	id: number;
@@ -10,12 +11,16 @@ export interface SubscriptionsProps {
 		icon: string;
 		background: string;
 	}
+	deleteItem: Function;
+	forceUpdate: React.DispatchWithoutAction
 }
 
 export interface SubscriptionsSectionProps {
-	data: SubscriptionsProps[];
+	data: Subscription[];
 	title: string;
 	subtitle: string;
+	deleteItem: Function;
+	forceUpdate: React.DispatchWithoutAction;
 }
 
 export interface SubscriptionsAviProps {

@@ -2,6 +2,7 @@ import React, { FunctionComponent, useState } from "react";
 import { Alert, Modal, StyleSheet, Text, Pressable, View } from "react-native";
 import { Ionicons } from "@expo/vector-icons"
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import { useForm, Controller } from 'react-hook-form'
 
 import styled from "styled-components/native";
 import { colors } from '../../components/colors';
@@ -11,6 +12,9 @@ import { Subscription, Art } from '../../screens/Home'
 import { SubscriptionAddProps } from './types';
 import SelectDropdown from 'react-native-select-dropdown';
 import icons from '../../../assets/icons/index';
+
+const DATE_REGEX = /^(0[1-9]|1[0-2])\/(0[1-9]|1\d|2\d|3[01])\/(19|20)\d{2}$/;
+const MONEY_REGEX = /^\$[+-]?[0-9]{1,3}(?:,?[0-9]{3})*(?:\.[0-9]{2})?$/
 
 const platforms = [
 	{ title: 'Apple Music', image: icons.get('Apple Music') },
@@ -44,8 +48,27 @@ const StyledImage = styled.Image`
 `;
 
 const SubscriptionAdd: FunctionComponent<SubscriptionAddProps> = (props) => {
-	const [amount, setAmount] = useState('');
-	const [date, setDate] = useState('');
+	const onSubAdded = (data: any) => {
+		const art: Art = {
+			background: colors.gray,
+			icon: platform,
+		};
+
+		const sub: Subscription = {
+			id: props.getNextId(),
+			amount: data.amount,
+			date: data.date,
+			title: platform,
+			subtitle: type,
+			art: art,
+		}
+		props.addSubscription(sub);
+		setPlatform('');
+		setType('');
+		props.setSubVisible(!props.addSubVisible);
+	}
+
+	const { control, handleSubmit, formState: { errors } } = useForm();
 	const [platform, setPlatform] = useState('');
 	const [type, setType] = useState('');
 
@@ -62,8 +85,8 @@ const SubscriptionAdd: FunctionComponent<SubscriptionAddProps> = (props) => {
 			<View style={styles.centeredView}>
 				<View style={styles.modalView}>
 					<Text style={styles.modalText}>Create a new subscription</Text>
-					<CustomInput placeholder="Amount" value={amount} setValue={setAmount} />
-					<CustomInput placeholder="Date" value={date} setValue={setDate} />
+					<CustomInput name="amount" placeholder="Amount" control={control} rules={{ required: 'Amount is required.', pattern: { value: MONEY_REGEX, message: 'Amount must have $ sign and be a valid number.' } }} />
+					<CustomInput name="date" placeholder="Date (mm/dd/yyyy)" control={control} rules={{ required: 'Date is required.', pattern: { value: DATE_REGEX, message: 'Date is invalid.' } }} />
 
 					<SelectDropdown
 						data={platforms}
@@ -127,26 +150,7 @@ const SubscriptionAdd: FunctionComponent<SubscriptionAddProps> = (props) => {
 
 					<Pressable
 						style={[styles.button, styles.buttonClose]}
-						onPress={() => {
-							const art: Art = {
-								background: colors.gray,
-								icon: platform,
-							};
-							const sub: Subscription = {
-								id: props.getNextId(),
-								amount: amount,
-								date: date,
-								title: platform,
-								subtitle: type,
-								art: art,
-							}
-							props.addSubscription(sub);
-							setAmount('');
-							setDate('');
-							setPlatform('');
-							setType('');
-							props.setSubVisible(!props.addSubVisible);
-						}}
+						onPress={handleSubmit(onSubAdded)}
 					>
 						<Text style={styles.textStyle}>Create subscription</Text>
 					</Pressable>

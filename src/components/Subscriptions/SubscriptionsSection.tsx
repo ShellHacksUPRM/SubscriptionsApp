@@ -47,7 +47,7 @@ const SubscriptionsSection: FunctionComponent<SubscriptionsSectionProps> = (prop
 					paddingBottom: 25,
 				}}
 				keyExtractor={({ id }: any) => id.toString()}
-				renderItem={({ item }: any) => <SubscriptionItem {...item} />}
+				renderItem={({ item }: any) => <SubscriptionItem {...item} deleteItem={props.deleteItem} forceUpdate={props.forceUpdate} />}
 				ItemSeparatorComponent={ItemDivider}
 			/>
 		</SubscriptionsSectionBackground>
