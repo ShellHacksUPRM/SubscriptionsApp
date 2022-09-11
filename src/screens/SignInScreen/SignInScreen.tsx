@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { Text, View, Image, StyleSheet, useWindowDimensions, ScrollView } from 'react-native';
 import CustomInput from '../../components/CustomInput';
 import CustomButton from '../../components/CustomButton';
+import SignInButtons from '../../components/SocialSignInButtons';
 
 
 
@@ -17,18 +18,6 @@ const SignInScreen = () => {
 
     const OnForgotPasswordPressed = () => {
         console.warn("onForgotPasswordPressed");
-    }
-
-    const onSignInFacebook = () => {
-        console.warn("Sign in with Facbook");
-    }
-
-    const onSignInGoogle = () =>{
-        console.warn("Sign in with Google");
-    }
-
-    const onSignInApple = () => {
-        console.warn("Sign in with Apple");
     }
 
     const onSignUpPress = () => {
@@ -58,24 +47,7 @@ const SignInScreen = () => {
                     fgColor={undefined}            
                 />
 
-                <CustomButton
-                    onPress={onSignInFacebook}
-                    text="Sign In with Facebook"
-                    bgColor="E7EAF4"
-                    fgColor="4765A9"
-                />
-                <CustomButton
-                    onPress={onSignInGoogle}
-                    text="Sign In with Google"
-                    bgColor="FAE9EA"
-                    fgColor= "DD4D44"
-                />
-                <CustomButton
-                    onPress={onSignInApple}
-                    text="Sign In with Apple"
-                    bgColor="e3e3e3"
-                    fgColor= "363636"
-                />
+                <SignInButtons/>
 
                 <CustomButton
                     text="Don't have an account? Create one"

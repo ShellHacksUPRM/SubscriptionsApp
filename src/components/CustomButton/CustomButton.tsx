@@ -8,7 +8,7 @@ const CustomButton = ({ onPress, text, type = "PRIMARY", bgColor, fgColor}) =>{
           style={[
             styles.container,
             styles[`container_${type}`],
-            bgColor ? {backgroundColor: bgColor} : {}
+            bgColor ? {backgroundColor : bgColor} : {}
             ]}>
             <Text style={[
                 styles.text,
@@ -52,6 +52,15 @@ const styles = StyleSheet.create({
 
     text_TERTIARY : { 
         color: 'gray'
+    },
+
+    container_SECONDARY: {
+        borderColor: '#003366',
+        borderWidth: 2,
+    },
+
+    text_SECONDARY: {
+        color: '#003366'
     }
 });
 
