@@ -2,6 +2,8 @@ import React, { FunctionComponent, useState } from 'react';
 
 import Home from '../screens/Home';
 import SignIn from '../screens/SignIn/SignIn';
+import SignUpScreen from '../screens/SignUpScreen';
+import ConfirmEmailScreen from '../screens/ConfirmEmailScreen'
 import { colors } from '../components/colors';
 
 import { NavigationContainer } from '@react-navigation/native';
@@ -13,6 +15,8 @@ import Icon from '../components/Header/Icon';
 
 export type RootStackParamList = {
 	SignIn: undefined;
+	SignUpScreen: undefined;
+	ConfirmEmailScreen: undefined;
 	Home: undefined;
 };
 
@@ -48,6 +52,22 @@ const RootStack: FunctionComponent = () => {
 				<Stack.Screen
 					name="SignIn"
 					component={SignIn}
+					options={({ navigation, route }) => ({
+						headerShown: false,
+					})}
+				/>
+
+				<Stack.Screen
+					name="SignUpScreen"
+					component={SignUpScreen}
+					options={({ navigation, route }) => ({
+						headerShown: false,
+					})}
+				/>
+
+				<Stack.Screen
+					name="ConfirmEmailScreen"
+					component={ConfirmEmailScreen}
 					options={({ navigation, route }) => ({
 						headerShown: false,
 					})}

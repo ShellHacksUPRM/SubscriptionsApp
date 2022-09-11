@@ -1,111 +1,79 @@
 import React, { useState } from 'react';
-import { StatusBar } from 'expo-status-bar';
-
 import { Text, View, Image, StyleSheet, useWindowDimensions, ScrollView } from 'react-native';
 import CustomInput from '../../components/CustomInput';
 import CustomButton from '../../components/CustomButton';
+import SignInButtons from '../../components/SocialSignInButtons';
+import { NavigationContainer } from '@react-navigation/native';
+import Home from '../Home';
+import SignUpScreen from '../SignUpScreen';
+
+
+
 
 const SignIn = ({ navigation }: any) => {
-	const [username, setUsername] = useState('');
-	const [password, setPassword] = useState('');
-	const { height } = useWindowDimensions();
-	const onSignInPresseed = () => {
-		navigation.navigate("Home");
-		console.warn("Sign in");
-	}
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const {height} = useWindowDimensions();
+    const onSignInPresseed = () => {
+        navigation.navigate(Home);
+    }
+    const OnForgotPasswordPressed = () => {
+        console.warn("onForgotPasswordPressed");
+    }
 
-	const OnForgotPasswordPressed = () => {
-		console.warn("onForgotPasswordPressed");
-	}
+    const onSignUpPress = () => {
+        navigation.navigate(SignUpScreen);
+    }
+    
+    return (
+        <ScrollView showsVerticalScrollIndicator={false} >
+            <View style={styles.root}>
+                <Image source={require('./images/capitalonelogo.png') } 
+                style={[styles.logo, {height: height * 0.1}]} 
+                resizeMode="contain"
+                />
+                <CustomInput placeholder="Username" value={username} setValue={setUsername} secureTextEntry={false} />
+                <CustomInput placeholder="Password" value={password} setValue={setPassword} secureTextEntry={true} />
 
-	const onSignInFacebook = () => {
-		console.warn("Sign in with Facbook");
-	}
+                <CustomButton
+                    onPress={onSignInPresseed}
+                    
+                    text="Sign In" bgColor={undefined} fgColor={undefined}            />
 
-	const onSignInGoogle = () => {
-		console.warn("Sign in with Google");
-	}
+                <CustomButton
+                    onPress={OnForgotPasswordPressed}
+                    text="Forgot password?"
+                    type="TERTIARY"
+                    bgColor={undefined}
+                    fgColor={undefined}            
+                />
 
-	const onSignInApple = () => {
-		console.warn("Sign in with Apple");
-	}
+                <SignInButtons/>
 
-	const onSignUpPress = () => {
-		console.warn("onSignUpPress")
-	}
+                <CustomButton
+                    text="Don't have an account? Create one"
+                    onPress={onSignUpPress}
+                    type="TERTIARY" bgColor={undefined} fgColor={undefined}          
+                    />
 
-	return (
-		<View style={styles.container}>
-			<ScrollView showsVerticalScrollIndicator={false} >
-				<View style={styles.root}>
-					<Image source={require('./images/capitalonelogo.png')}
-						style={[styles.logo, { height: height * 0.1 }]}
-						resizeMode="contain"
-					/>
-					<CustomInput placeholder="Username" value={username} setValue={setUsername} secureTextEntry={false} />
-					<CustomInput placeholder="Password" value={password} setValue={setPassword} secureTextEntry={true} />
-
-					<CustomButton
-						onPress={onSignInPresseed}
-
-						text="Sign In" bgColor={undefined} fgColor={undefined} />
-
-					<CustomButton
-						onPress={OnForgotPasswordPressed}
-						text="Forgot password?"
-						type="TERTIARY"
-						bgColor={undefined}
-						fgColor={undefined}
-					/>
-
-					<CustomButton
-						onPress={onSignInFacebook}
-						text="Sign In with Facebook"
-						bgColor="E7EAF4"
-						fgColor="4765A9"
-					/>
-					<CustomButton
-						onPress={onSignInGoogle}
-						text="Sign In with Google"
-						bgColor="FAE9EA"
-						fgColor="DD4D44"
-					/>
-					<CustomButton
-						onPress={onSignInApple}
-						text="Sign In with Apple"
-						bgColor="e3e3e3"
-						fgColor="363636"
-					/>
-
-					<CustomButton
-						text="Don't have an account? Create one"
-						onPress={onSignUpPress}
-						type="TERTIARY" bgColor={undefined} fgColor={undefined}
-					/>
-				</View>
-			</ScrollView>
-			<StatusBar />
-		</View>
-	)
+            
+            </View>
+        </ScrollView>
+    )
 }
 const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		backgroundColor: 'white',
-		alignItems: 'center',
-		justifyContent: 'center',
-	},
-	root: {
-		alignItems: 'center',
-		padding: 1,
-		width: 300,
-	},
-	logo: {
-		maxWidth: 300,
-		maxHeight: 100,
-		marginTop: 100,
-		marginBottom: 1
-	}
+    root: {
+        alignItems: 'center',
+        padding: 1,
+        marginHorizontal: 44,
+        width: 300,
+    },
+    logo: {
+        maxWidth: 300,
+        maxHeight: 100,
+        marginTop: 100,
+        marginBottom: 1
+    }
 
 });
 

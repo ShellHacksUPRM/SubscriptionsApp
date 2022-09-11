@@ -1,4 +1,8 @@
 import React from 'react';
+import { StyleSheet, Text, View } from 'react-native';
+import SignInScreen from './src/screens/SignIn';
+import SignUpScreen from './src/screens/SignUpScreen';
+import ConfirmEmailScreen from './src/screens/ConfirmEmailScreen';
 import AppLoading from 'expo-app-loading';
 import RootStack from './src/navigators/RootStack';
 import { useFonts } from "expo-font";
@@ -17,3 +21,12 @@ export default function App() {
 		<RootStack />
 	);
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: 'white',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});
