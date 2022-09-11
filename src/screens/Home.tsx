@@ -9,7 +9,6 @@ import Icon from '../components/Header/Icon';
 import SubscriptionsSection from '../components/Subscriptions/SubscriptionsSection';
 import SubscriptionAdd from '../components/Subscriptions/SubscriptionAdd';
 
-
 const HomeContainer = styled(Container)`
 	background-color: ${colors.graylight};
 	margin-top: 10px;

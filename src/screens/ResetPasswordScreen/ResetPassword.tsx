@@ -1,19 +1,18 @@
 import React from 'react';
 import { useState } from 'react';
-import {Alert, Modal, Text, View, StyleSheet, ScrollView } from 'react-native';
+import {Alert, Text, View, StyleSheet, ScrollView } from 'react-native';
 import CustomInput from '../../components/CustomInput';
 import CustomButton from '../../components/CustomButton';
-import SignInButtons from '../../components/SocialSignInButtons/SocialSignInButtons';
 import SignIn from '../SignIn';
 import { NavigationContainer } from '@react-navigation/native';
 
-
-
-const ConfirmEmailScreen = ({ navigation }: any) => {
+const ResetPassword = ({ navigation }: any) => {
 const [code, setCode] = useState('');
+const [newpassword, setnewpassword] = useState('');
     const onConfirmPressed = () => {
         navigation.navigate(SignIn);
-        Alert.alert("Account has been succesfully registered.");
+        Alert.alert("Password has been reset.");
+
     }
 
     const onResendPress = () =>{
@@ -28,11 +27,17 @@ const [code, setCode] = useState('');
     return (
         <ScrollView showsVerticalScrollIndicator={false} >
             <View style={styles.root}>
-                <Text style={styles.title}>Confirm your email</Text>
+                <Text style={styles.title}>Reset your password.</Text>
                 <CustomInput 
                 value={code} 
                 setValue={setCode} 
                 placeholder={"Enter your confirmation code."} 
+                secureTextEntry={false}                
+                />
+                <CustomInput 
+                value={newpassword} 
+                setValue={setnewpassword} 
+                placeholder={"Enter your new password."} 
                 secureTextEntry={false}                
                 />
 
@@ -88,5 +93,5 @@ const styles = StyleSheet.create({
 
 });
 
-export default ConfirmEmailScreen;
+export default ResetPassword;
 

@@ -6,6 +6,7 @@ import SignInButtons from '../../components/SocialSignInButtons';
 import { NavigationContainer } from '@react-navigation/native';
 import Home from '../Home';
 import SignUpScreen from '../SignUpScreen';
+import ForgotPasswordScreen from '../ForgotPasswordScreen';
 
 
 
@@ -18,7 +19,7 @@ const SignIn = ({ navigation }: any) => {
         navigation.navigate(Home);
     }
     const OnForgotPasswordPressed = () => {
-        console.warn("onForgotPasswordPressed");
+        navigation.navigate(ForgotPasswordScreen);
     }
 
     const onSignUpPress = () => {

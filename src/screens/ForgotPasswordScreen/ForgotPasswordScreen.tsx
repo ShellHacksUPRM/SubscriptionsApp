@@ -1,23 +1,18 @@
 import React from 'react';
 import { useState } from 'react';
-import {Alert, Modal, Text, View, StyleSheet, ScrollView } from 'react-native';
+import { Text, View, StyleSheet, ScrollView } from 'react-native';
 import CustomInput from '../../components/CustomInput';
 import CustomButton from '../../components/CustomButton';
 import SignInButtons from '../../components/SocialSignInButtons/SocialSignInButtons';
 import SignIn from '../SignIn';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, CommonActions } from '@react-navigation/native';
+import ResetPassword from '../ResetPasswordScreen';
 
 
-
-const ConfirmEmailScreen = ({ navigation }: any) => {
-const [code, setCode] = useState('');
-    const onConfirmPressed = () => {
-        navigation.navigate(SignIn);
-        Alert.alert("Account has been succesfully registered.");
-    }
-
-    const onResendPress = () =>{
-        console.warn("Resend Pressed")
+const ForgotPasswordScreen = ({ navigation, route }: any) => {
+    const [email, setEmail] = useState('');
+    const onResetPassword = () => {
+        navigation.navigate(ResetPassword);
     }
     
 
@@ -28,29 +23,23 @@ const [code, setCode] = useState('');
     return (
         <ScrollView showsVerticalScrollIndicator={false} >
             <View style={styles.root}>
-                <Text style={styles.title}>Confirm your email</Text>
-                <CustomInput 
-                value={code} 
-                setValue={setCode} 
-                placeholder={"Enter your confirmation code."} 
-                secureTextEntry={false}                
+                <Text style={styles.title}>Reset your password.</Text>
+
+
+                <CustomInput
+                    value = {email}
+                    setValue = {setEmail}
+                    placeholder = {"Enter your email address."}
+                    secureTextEntry = {false}
                 />
-
-                <CustomButton 
-                text="Confirm" 
-                onPress={onConfirmPressed} 
-                bgColor={undefined} 
-                fgColor={undefined} />
-
 
                 <CustomButton
-                    text="Resend code"
-                    onPress={onResendPress}
-                    type="SECONDARY" 
+                    text = "Send Email."
+                    onPress={onResetPassword} 
                     bgColor={undefined} 
                     fgColor={undefined}
+                    type="PRIMARY"
                 />
-
                 <CustomButton
                     text = "Back to Sign in."
                     onPress={onSignInPress} 
@@ -78,7 +67,7 @@ const styles = StyleSheet.create({
         margin: 10
     },
     text:  {
-        color: 'gray',
+        color: 'grey',
         marginVertical: 10,
     },
     link : {
@@ -88,5 +77,5 @@ const styles = StyleSheet.create({
 
 });
 
-export default ConfirmEmailScreen;
+export default ForgotPasswordScreen;
 
