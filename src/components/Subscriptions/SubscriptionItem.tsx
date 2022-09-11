@@ -1,6 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import styled from "styled-components/native";
 import { View } from "react-native"
+import { Ionicons } from "@expo/vector-icons"
 
 import { colors } from '../../components/colors';
 import SmallText from '../Texts/SmallText';
@@ -23,11 +24,15 @@ const LeftView = styled.View`
 	justify-content: flex-start;
 	height: 100%;
 	align-items: center;
-	flex: 2;
+	flex: 1;
 `;
 
-const RightView = styled.View`
-	flex: 1;
+const RightView = styled.View``;
+
+const StyledView = styled.TouchableOpacity`
+	height: 25px;
+	width: 25px;
+	marginRight: 10px;
 `;
 
 const SubscriptionItem: FunctionComponent<SubscriptionsProps> = (props) => {
@@ -59,26 +64,29 @@ const SubscriptionItem: FunctionComponent<SubscriptionsProps> = (props) => {
 					</SmallText>
 				</View>
 			</LeftView>
+			<View style={{ marginRight: 10 }}>
+				<RegularText
+					textStyles={{
+						color: colors.secondary,
+						textAlign: 'right',
+						marginBottom: 5,
+					}}
+				>
+					{props.amount}
+				</RegularText>
+				<SmallText
+					textStyles={{
+						color: colors.graydark,
+						textAlign: 'right',
+					}}
+				>
+					{props.date}
+				</SmallText>
+			</View>
 			<RightView>
-				<View style={{ marginRight: 10 }}>
-					<RegularText
-						textStyles={{
-							color: colors.secondary,
-							textAlign: 'right',
-							marginBottom: 5,
-						}}
-					>
-						{props.amount}
-					</RegularText>
-					<SmallText
-						textStyles={{
-							color: colors.graydark,
-							textAlign: 'right',
-						}}
-					>
-						{props.date}
-					</SmallText>
-				</View>
+				<StyledView onPress={() => { return; }}>
+					<Ionicons name="close" size={25} color={colors.secondary}></Ionicons>
+				</StyledView>
 			</RightView>
 		</SubscriptionRow>
 	);

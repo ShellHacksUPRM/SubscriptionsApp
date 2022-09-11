@@ -1,4 +1,5 @@
 import React, { FunctionComponent } from 'react';
+import { View } from 'react-native';
 import styled from "styled-components/native";
 
 import { SubscriptionsSectionProps } from './types';
@@ -47,9 +48,19 @@ const SubscriptionsSection: FunctionComponent<SubscriptionsSectionProps> = (prop
 				}}
 				keyExtractor={({ id }: any) => id.toString()}
 				renderItem={({ item }: any) => <SubscriptionItem {...item} />}
+				ItemSeparatorComponent={ItemDivider}
 			/>
 		</SubscriptionsSectionBackground>
 	);
 };
+
+const ItemDivider: FunctionComponent = () => {
+	return (
+		<View style={{
+			borderBottomColor: colors.gray,
+			borderBottomWidth: 1,
+		}} />
+	)
+}
 
 export default SubscriptionsSection;

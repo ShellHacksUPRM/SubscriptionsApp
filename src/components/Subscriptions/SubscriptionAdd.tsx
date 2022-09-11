@@ -104,7 +104,6 @@ const SubscriptionAdd: FunctionComponent<SubscriptionAddProps> = (props) => {
 
 					<SelectDropdown
 						data={subTypes}
-						defaultValueByIndex={0}
 						onSelect={(selectedItem, index) => {
 							setType(selectedItem);
 						}}
@@ -135,7 +134,7 @@ const SubscriptionAdd: FunctionComponent<SubscriptionAddProps> = (props) => {
 							};
 							const sub: Subscription = {
 								id: props.getNextId(),
-								amount: `$${amount}`,
+								amount: amount,
 								date: date,
 								title: platform,
 								subtitle: type,
