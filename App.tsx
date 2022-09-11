@@ -1,22 +1,19 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import SignInScreen from './src/screens/SignInScreen';
+import AppLoading from 'expo-app-loading';
+import RootStack from './src/navigators/RootStack';
+import { useFonts } from "expo-font";
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <SignInScreen />
-      <StatusBar style="auto" />
-    </View>
-  );
-}
+	let [fontsLoaded] = useFonts({
+		"Lato-Bold": require("./assets/fonts/Lato-Bold.ttf"),
+		"Lato-Regular": require("./assets/fonts/Lato-Regular.ttf"),
+	});
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: 'white',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+	if (!fontsLoaded) {
+		return <AppLoading />
+	}
+
+	return (
+		<RootStack />
+	);
+}
