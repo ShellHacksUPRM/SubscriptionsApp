@@ -6,11 +6,15 @@ import CustomButton from '../../components/CustomButton';
 import SignInButtons from '../../components/SocialSignInButtons/SocialSignInButtons';
 import SignIn from '../SignIn';
 import { NavigationContainer } from '@react-navigation/native';
+import { useForm } from 'react-hook-form';
 
 
 
 const ConfirmEmailScreen = ({ navigation }: any) => {
-const [code, setCode] = useState('');
+
+    const {control, handleSubmit, formState: {errors}, watch} = useForm();
+
+
     const onConfirmPressed = () => {
         navigation.navigate(SignIn);
         Alert.alert("Account has been succesfully registered.");
@@ -29,18 +33,20 @@ const [code, setCode] = useState('');
         <ScrollView showsVerticalScrollIndicator={false} >
             <View style={styles.root}>
                 <Text style={styles.title}>Confirm your email</Text>
-                <CustomInput 
-                value={code} 
-                setValue={setCode} 
-                placeholder={"Enter your confirmation code."} 
-                secureTextEntry={false}                
+                <CustomInput
+                    name="code"
+                    placeholder="Confirmation code"
+                    control = {control}
+                    rules = {{required: 'Code is required.'}}
+                    secureTextEntry={false}
                 />
 
                 <CustomButton 
-                text="Confirm" 
-                onPress={onConfirmPressed} 
-                bgColor={undefined} 
-                fgColor={undefined} />
+                    text="Confirm" 
+                    onPress={handleSubmit(onConfirmPressed)} 
+                    bgColor={undefined} 
+                    fgColor={undefined} 
+                />
 
 
                 <CustomButton

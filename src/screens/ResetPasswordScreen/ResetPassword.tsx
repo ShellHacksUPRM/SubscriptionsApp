@@ -5,10 +5,14 @@ import CustomInput from '../../components/CustomInput';
 import CustomButton from '../../components/CustomButton';
 import SignIn from '../SignIn';
 import { NavigationContainer } from '@react-navigation/native';
+import {useForm, Controller} from 'react-hook-form'
+
+
 
 const ResetPassword = ({ navigation }: any) => {
-const [code, setCode] = useState('');
-const [newpassword, setnewpassword] = useState('');
+
+    const {control, handleSubmit, formState: {errors} } = useForm();
+
     const onConfirmPressed = () => {
         navigation.navigate(SignIn);
         Alert.alert("Password has been reset.");
@@ -28,17 +32,17 @@ const [newpassword, setnewpassword] = useState('');
         <ScrollView showsVerticalScrollIndicator={false} >
             <View style={styles.root}>
                 <Text style={styles.title}>Reset your password.</Text>
-                <CustomInput 
-                value={code} 
-                setValue={setCode} 
-                placeholder={"Enter your confirmation code."} 
-                secureTextEntry={false}                
+                <CustomInput
+                    name = "code"
+                    placeholder="Enter code."
+                    control={control}
+                    rules = {{required: 'Code is required.'}}
                 />
                 <CustomInput 
-                value={newpassword} 
-                setValue={setnewpassword} 
-                placeholder={"Enter your new password."} 
-                secureTextEntry={false}                
+                    name = "newPassword"
+                    placeholder="Enter new password."
+                    control = {control}
+                    rules = {{required: 'New password is required.'}}                
                 />
 
                 <CustomButton 

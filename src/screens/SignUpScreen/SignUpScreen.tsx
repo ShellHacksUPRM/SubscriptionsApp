@@ -7,13 +7,16 @@ import SignInButtons from '../../components/SocialSignInButtons/SocialSignInButt
 import { NavigationContainer } from '@react-navigation/native';
 import SignIn from '../SignIn';
 import ConfirmEmailScreen from '../ConfirmEmailScreen';
+import {useForm, Controller} from 'react-hook-form'
+
+const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 
 
 const SignUpScreen = ({ navigation }: any) => {
-    const [username, setUsername] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [passwordRepeat, setPasswordRepeat] = useState('');
+
+    const {control, handleSubmit, formState: {errors}, watch} = useForm();
+
+
     const onRegisterPressed = () => {
         navigation.navigate(ConfirmEmailScreen);
     }
@@ -30,8 +33,6 @@ const SignUpScreen = ({ navigation }: any) => {
         console.warn("onForgotPasswordPressed");
     }
 
-    
-
     const onSignInPress = () => {
         navigation.navigate(SignIn);
     }
@@ -40,15 +41,42 @@ const SignUpScreen = ({ navigation }: any) => {
         <ScrollView showsVerticalScrollIndicator={false} >
             <View style={styles.root}>
                 <Text style={styles.title}>Create an account</Text>
-                <CustomInput placeholder="Username" value={username} setValue={setUsername} secureTextEntry={false} />
-                <CustomInput placeholder="Email" value={email} setValue={setEmail} secureTextEntry={false} />
-                <CustomInput placeholder="Password" value={password} setValue={setPassword} secureTextEntry={true} />
-                <CustomInput placeholder="Repeat Password" value={passwordRepeat} setValue={setPasswordRepeat} secureTextEntry={true} />
+                <CustomInput
+                    name="username"
+                    placeholder="Username"
+                    control = {control}
+                    rules = {{required: 'Username is required.'}}
+                    secureTextEntry={false}
+                />
+                <CustomInput
+                    name="email"
+                    placeholder="email"
+                    control = {control}
+                    rules = {{required: 'Email is required.', pattern: {value: EMAIL_REGEX, message: 'Email is invalid.'}}}
+                    secureTextEntry={false}
+                />
+                <CustomInput
+                    name="password"
+                    placeholder="Password"
+                    control = {control}
+                    rules = {{required: 'Password is required.', minLength: {value: 3, message: 'Password should be atleast 3 characteres long'}}}
+                    secureTextEntry={true}
+                />
+                <CustomInput
+                    name="repeatpassword"
+                    placeholder="Repeat Password"
+                    control = {control}
+                    rules = {{required: 'Repeated Password is required.',
+                    validate: (value: any) =>
+                        value === watch("password") || "The passwords do not match!"
+                    }}
+                    secureTextEntry={true}
+                />
 
-                <CustomButton text="Register" onPress={onRegisterPressed} bgColor={undefined} fgColor={undefined} />
+                <CustomButton text="Register" onPress={handleSubmit(onRegisterPressed)} bgColor={undefined} fgColor={undefined} />
 
                 <Text style={styles.text}>
-                    By registering, you confirm that you accept our <Text style={styles.link} onPress={onTermsOfUsePressed}>Terms of Use </Text>
+                    By registering, you confirm that you accept our <Text style={styles.link} onPress={handleSubmit(onTermsOfUsePressed)}>Terms of Use </Text>
                     {' '}and{' '} <Text style={styles.link} onPress={onPrivacyPressed}>Privacy Policy.</Text>
                 </Text>
 

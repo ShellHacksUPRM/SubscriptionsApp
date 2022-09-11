@@ -7,11 +7,14 @@ import SignInButtons from '../../components/SocialSignInButtons/SocialSignInButt
 import SignIn from '../SignIn';
 import { NavigationContainer, CommonActions } from '@react-navigation/native';
 import ResetPassword from '../ResetPasswordScreen';
+import {useForm, Controller} from 'react-hook-form'
 
 
 const ForgotPasswordScreen = ({ navigation, route }: any) => {
-    const [email, setEmail] = useState('');
-    const onResetPassword = () => {
+
+    const {control, handleSubmit, formState: {errors} } = useForm();
+
+        const onResetPassword = () => {
         navigation.navigate(ResetPassword);
     }
     
@@ -27,15 +30,15 @@ const ForgotPasswordScreen = ({ navigation, route }: any) => {
 
 
                 <CustomInput
-                    value = {email}
-                    setValue = {setEmail}
-                    placeholder = {"Enter your email address."}
-                    secureTextEntry = {false}
+                    name = "email"
+                    placeholder="Email"
+                    control={control}
+                    rules = {{required: 'Email is required.'}}
                 />
 
                 <CustomButton
                     text = "Send Email."
-                    onPress={onResetPassword} 
+                    onPress={handleSubmit(onResetPassword)} 
                     bgColor={undefined} 
                     fgColor={undefined}
                     type="PRIMARY"

@@ -4,7 +4,7 @@ import SignInScreen from './src/screens/SignIn';
 import SignUpScreen from './src/screens/SignUpScreen';
 import ConfirmEmailScreen from './src/screens/ConfirmEmailScreen';
 import ForgotPasswordScreen from './src/screens/ForgotPasswordScreen';
-import ConfirmResetPassword from './src/screens/EnterNewPasswordScreen';
+import ConfirmResetPassword from './src/screens/ResetPasswordScreen';
 import AppLoading from 'expo-app-loading';
 import RootStack from './src/navigators/RootStack';
 import { useFonts } from "expo-font";

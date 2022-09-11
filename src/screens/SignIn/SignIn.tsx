@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Text, View, Image, StyleSheet, useWindowDimensions, ScrollView } from 'react-native';
+import { Text, View, Image, StyleSheet, useWindowDimensions, ScrollView, TextInput} from 'react-native';
 import CustomInput from '../../components/CustomInput';
 import CustomButton from '../../components/CustomButton';
 import SignInButtons from '../../components/SocialSignInButtons';
@@ -7,15 +7,21 @@ import { NavigationContainer } from '@react-navigation/native';
 import Home from '../Home';
 import SignUpScreen from '../SignUpScreen';
 import ForgotPasswordScreen from '../ForgotPasswordScreen';
-
+import {useForm, Controller} from 'react-hook-form'
 
 
 
 const SignIn = ({ navigation }: any) => {
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
+
+
     const {height} = useWindowDimensions();
-    const onSignInPresseed = () => {
+
+    const {control, handleSubmit, formState: {errors} } = useForm();
+
+
+
+    const onSignInPresseed = (data: any) => {
+        console.log(data);
         navigation.navigate(Home);
     }
     const OnForgotPasswordPressed = () => {
@@ -33,12 +39,22 @@ const SignIn = ({ navigation }: any) => {
                 style={[styles.logo, {height: height * 0.1}]} 
                 resizeMode="contain"
                 />
-                <CustomInput placeholder="Username" value={username} setValue={setUsername} secureTextEntry={false} />
-                <CustomInput placeholder="Password" value={password} setValue={setPassword} secureTextEntry={true} />
+                <CustomInput
+                    name = "username"
+                    placeholder="Username"
+                    control={control}
+                    rules = {{required: 'Username is required.'}}
+                />
+                <CustomInput
+                    name="password"
+                    placeholder="Password"
+                    control = {control}
+                    rules = {{required: 'Password is required.'}}
+                    secureTextEntry={true}
+                />
 
                 <CustomButton
-                    onPress={onSignInPresseed}
-                    
+                    onPress={handleSubmit(onSignInPresseed)}
                     text="Sign In" bgColor={undefined} fgColor={undefined}            />
 
                 <CustomButton
