@@ -8,9 +8,7 @@ import {
 import styled from "styled-components/native";
 
 import { Ionicons } from "@expo/vector-icons"
-
 import { colors } from '../colors';
-
 
 const StyledView = styled.TouchableOpacity`
 	flex-direction: column;

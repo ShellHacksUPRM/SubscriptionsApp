@@ -1,10 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import styled from "styled-components/native";
 
-import { colors } from '../../components/colors';
-import SmallText from '../Texts/SmallText';
-import RegularText from '../Texts/RegularText';
-
 import { SubscriptionsAviProps } from './types';
 import icons from '../../../assets/icons/index';
 

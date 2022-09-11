@@ -28,7 +28,7 @@ const RootStack: FunctionComponent = () => {
 			<Stack.Navigator
 				screenOptions={{
 					headerStyle: {
-						backgroundColor: "#BBBBBB",
+						backgroundColor: colors.secondary,
 						borderBottomWidth: 0,
 						shadowColor: "transparent",
 						shadowOpacity: 0,

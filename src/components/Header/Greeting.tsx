@@ -23,7 +23,7 @@ const Greeting: FunctionComponent<GreetingProps> = (props) => {
 			<RegularText
 				textStyles={[
 					{
-						color: colors.secondary,
+						color: colors.white,
 						fontSize: 22,
 					},
 					props.mainTextStyles,

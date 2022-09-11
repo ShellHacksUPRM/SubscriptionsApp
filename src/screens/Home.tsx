@@ -9,7 +9,6 @@ import Icon from '../components/Header/Icon';
 import SubscriptionsSection from '../components/Subscriptions/SubscriptionsSection';
 import SubscriptionAdd from '../components/Subscriptions/SubscriptionAdd';
 
-
 const HomeContainer = styled(Container)`
 	background-color: ${colors.graylight};
 	margin-top: 10px;
@@ -17,12 +16,12 @@ const HomeContainer = styled(Container)`
 	flex: 1;
 `;
 
-interface Art {
+export interface Art {
 	background: string;
 	icon: string;
 }
 
-interface Subscription {
+export interface Subscription {
 	id: number;
 	amount: string;
 	date: string;
@@ -31,56 +30,15 @@ interface Subscription {
 	art: Art;
 }
 
-const subscritionData: Subscription[] = [
-	{
-		id: 1,
-		amount: "$9.99",
-		date: "1 Sep 2022",
-		title: "Spotify",
-		subtitle: 'Monthly',
-		art: {
-			background: colors.gray,
-			icon: "spotify",
-		}
-	},
-	{
-		id: 2,
-		amount: "$14.99",
-		date: "3 Sep 2022",
-		title: "Netflix",
-		subtitle: 'Monthly',
-		art: {
-			background: colors.gray,
-			icon: "netflix",
-		}
-	},
-	{
-		id: 3,
-		amount: "$7.99",
-		date: "6 Sep 2022",
-		title: "Disney+",
-		subtitle: 'Monthly',
-		art: {
-			background: colors.gray,
-			icon: "disneyplus",
-		}
-	},
-	{
-		id: 4,
-		amount: "$99.99",
-		date: "10 Oct 2022",
-		title: "Apple Music",
-		subtitle: 'Annual',
-		art: {
-			background: colors.gray,
-			icon: "applemusic",
-		}
-	},
-];
+const subscriptionData: Subscription[] = [];
+
+const getNextId = (): number => {
+	return subscriptionData.length + 1;
+}
 
 const totalAmount = (period: string): number => {
 	let total = 0;
-	subscritionData.map((item) => {
+	subscriptionData.map((item) => {
 		if (item.subtitle == period) {
 			total += parseFloat(item.amount.substring(1))
 		}
@@ -89,12 +47,13 @@ const totalAmount = (period: string): number => {
 }
 
 const addSubscription = (item: Subscription): void => {
-	// Logic for adding a subscription
+	subscriptionData.push(item);
 	return;
 }
 
 const Home: FunctionComponent = ({ navigation }: any) => {
-	const yearlyCost = Math.ceil(totalAmount("Monthly") * 12 + totalAmount("Annual"));
+	let yearlyCost = Math.ceil(totalAmount("Monthly") * 12 + totalAmount("Annual"));
+	if (yearlyCost == NaN) yearlyCost = 0;
 	const [addSubVisible, setSubVisible] = React.useState(false);
 
 	React.useLayoutEffect(() => {
@@ -114,9 +73,10 @@ const Home: FunctionComponent = ({ navigation }: any) => {
 			<SubscriptionAdd
 				addSubVisible={addSubVisible}
 				setSubVisible={setSubVisible}
-				addSubscription={addSubscription} />
+				addSubscription={addSubscription}
+				getNextId={getNextId} />
 			<SubscriptionsSection
-				data={subscritionData}
+				data={subscriptionData}
 				title="Subscriptions"
 				subtitle={`$${yearlyCost} per year`}
 			/>

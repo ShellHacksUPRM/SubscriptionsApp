@@ -23,7 +23,7 @@ const SubscriptionRow = styled.View`
 `;
 
 const SubscriptionList = styled.FlatList`
-	background-color: #EEEEEE;
+	background-color: ${colors.white};
 	border-radius: 25px;
 	width: 100%;
 `;

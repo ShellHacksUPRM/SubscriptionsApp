@@ -27,4 +27,5 @@ export interface SubscriptionAddProps {
 	addSubVisible: boolean;
 	setSubVisible: React.Dispatch<React.SetStateAction<boolean>>;
 	addSubscription: Function;
+	getNextId: Function;
 }
