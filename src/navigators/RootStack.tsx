@@ -4,6 +4,8 @@ import Home from '../screens/Home';
 import SignIn from '../screens/SignIn/SignIn';
 import SignUpScreen from '../screens/SignUpScreen';
 import ConfirmEmailScreen from '../screens/ConfirmEmailScreen'
+import ForgotPasswordScreen from '../screens/ForgotPasswordScreen';
+import ResetPassword from '../screens/ResetPasswordScreen/ResetPassword';
 import { colors } from '../components/colors';
 
 import { NavigationContainer } from '@react-navigation/native';
@@ -17,7 +19,10 @@ export type RootStackParamList = {
 	SignIn: undefined;
 	SignUpScreen: undefined;
 	ConfirmEmailScreen: undefined;
+	ForgotPasswordScreen : undefined;
+	ResetPassword: undefined;
 	Home: undefined;
+
 };
 
 const Stack = createStackNavigator<RootStackParamList>();
@@ -68,6 +73,22 @@ const RootStack: FunctionComponent = () => {
 				<Stack.Screen
 					name="ConfirmEmailScreen"
 					component={ConfirmEmailScreen}
+					options={({ navigation, route }) => ({
+						headerShown: false,
+					})}
+				/>
+
+				<Stack.Screen
+					name="ForgotPasswordScreen"
+					component={ForgotPasswordScreen}
+					options={({ navigation, route }) => ({
+						headerShown: false,
+					})}
+				/>
+
+				<Stack.Screen
+					name="ResetPassword"
+					component={ResetPassword}
 					options={({ navigation, route }) => ({
 						headerShown: false,
 					})}
