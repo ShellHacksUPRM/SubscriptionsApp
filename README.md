@@ -8,4 +8,4 @@ This application was created for a Shell-Hacks challenge to help Capital One emp
 - [React Hook Form](https://react-hook-form.com/)
 - [AWS Amplify](https://aws.amazon.com/amplify/)
 
-Make sure to leave
+Make sure to leave a star if you enjoy the project! :)
